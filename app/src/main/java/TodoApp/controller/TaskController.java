@@ -13,7 +13,7 @@ public class TaskController {
 
     public void save(Task task) {
         String sql = "INSERT INTO tasks (idProject, name, description, completed, notes, deadline, createdAt, updatedAt) "
-                + "VALUES (?, ?, ?, ?, ?, ? ,?)";
+                + "VALUES (?, ?, ?, ?, ?, ? ,?,?)";
 
         try ( Connection con = ConnectionFactory.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, task.getIdProject());
@@ -33,7 +33,7 @@ public class TaskController {
     public void update(Task task) {
         String sql = "UPDATE tasks SET idProject = ?, name = ?, description = ?, completed = ?, notes = ?, deadline = ?"
                 + "createdAt = ?, updatedAt = ? WHERE id = ?";
-        
+
         //Estabelecendo a conexão com o BD e preparando a query
         try ( Connection con = ConnectionFactory.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             //Setando os valores do statement
@@ -46,7 +46,7 @@ public class TaskController {
             ps.setDate(7, new Date(task.getCreatedAt().getTime()));
             ps.setDate(8, new Date(task.getUpdateAt().getTime()));
             ps.setInt(9, task.getId());
-            
+
             //Executando a query
             ps.execute();
         } catch (Exception e) {

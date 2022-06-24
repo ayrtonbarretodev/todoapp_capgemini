@@ -12,13 +12,13 @@ import java.util.List;
 public class ProjectController {
 
     public void save(Project project) {
-        String sql = "INSERT INTO projects (name, description, createdAt, updateAt) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO projects (name, description, createdAt, updatedAt) VALUES (?, ?, ?, ?)";
 
         try ( Connection con = ConnectionFactory.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, project.getName());
             ps.setString(2, project.getDescription());
             ps.setDate(3, new Date(project.getCreatedAt().getTime()));
-            ps.setDate(4, new Date(project.getUpdateAt().getTime()));
+            ps.setDate(4, new Date(project.getUpdatedAt().getTime()));
             ps.execute();
         } catch (Exception e) {
             throw new RuntimeException("Erro ao salvar o projeto " + e.getMessage(), e);
@@ -35,7 +35,7 @@ public class ProjectController {
             ps.setString(1, project.getName());
             ps.setString(2, project.getDescription());
             ps.setDate(3, new Date(project.getCreatedAt().getTime()));
-            ps.setDate(4, new Date(project.getUpdateAt().getTime()));
+            ps.setDate(4, new Date(project.getUpdatedAt().getTime()));
             ps.setInt(5, project.getId());
 
             //Executando a query
@@ -71,7 +71,7 @@ public class ProjectController {
                     project.setName(rs.getString("name"));
                     project.setDescription(rs.getString("description"));
                     project.setCreatedAt(rs.getDate("createdAt"));
-                    project.setUpdateAt(rs.getDate("updatedAt"));
+                    project.setUpdatedAt(rs.getDate("updatedAt"));
 
                     projects.add(project);
                 }
