@@ -27,6 +27,7 @@ public class Task {
 
     public Task() {
         this.createdAt = new Date();
+        this.updateAt = new Date();
     }
     
     
