@@ -19,7 +19,7 @@ public class App {
     public static void main(String[] args) {
         //System.out.println(new App().getGreeting());
 
-//        ProjectController projectController = new ProjectController();
+        ProjectController projectController = new ProjectController();
 
 //        Project project = new Project();
 //        project.setName("Projeto Three");
@@ -29,35 +29,44 @@ public class App {
 //        project.setId(2);
 //        project.setName("Novo nome do projeto");
 //        projectController.update(project);
-//        List<Project> projects = projectController.getAll();
-//        System.out.println("Total de projetos = " + projects.size());
-//        projectController.removeById(3);
+        List<Project> projects = projectController.getAll();
+        System.out.println("Total de projetos = " + projects.size());
+        projectController.removeById(3);
+        
+        projects.forEach((t) -> {
+            System.out.println(t);
+        });
 
+        System.out.println("");
         
-//        TaskController taskController = new TaskController();
-//        
-//        Task task = new Task();
-//        task.setIdProject(1);
-//        task.setName("Teste Atualização");
-//        task.setDescription("Somente testando");
-//        task.setNotes("S Notas");
-//        task.setCompleted(false);
-//        task.setDeadline(new Date());
+        TaskController taskController = new TaskController();
+
+        Task task = new Task();
+        task.setIdProject(1);
+        task.setName("Teste Atualização");
+        task.setDescription("Somente testando");
+        task.setNotes("S Notas");
+        task.setCompleted(false);
+        task.setDeadline(new Date());
+        task.setCreatedAt(new Date());
+        task.setUpdateAt(new Date());
         
-//        taskController.save(task);
+        //taskController.save(task);
         
-//        task.setId(3);
-//        String novoNome = "Alterar telas da aplicação";
-//        task.setName(novoNome);
-//        taskController.update(task);
-//        
-//        List<Task> tasks = taskController.getAll(1);
-//        System.out.println("Total de tarefas = " + tasks.size());
-//        
-//        
-//        System.out.println("Tarefas do projeto do id 1 - Carreiras Policiais");
-//        tasks.forEach((t) -> {
-//            System.out.println(t);
-//        });
+        task.setId(4);
+        String novoNome = "Novo teste";
+        task.setName(novoNome);
+        //taskController.update(task);
+
+        List<Task> tasks = taskController.getAll(1);
+        System.out.println("Total de tarefas = " + tasks.size());
+        
+        
+        System.out.println("Tarefas do projeto do id 1 - Carreiras Policiais");
+        tasks.forEach((t) -> {
+            System.out.println(t);
+        });
+        
+        //taskController.removeById(3);
     }
 }
