@@ -3,6 +3,7 @@ package TodoApp.model;
 import java.util.Date;
 
 public class Task {
+
     private int id;
     private int idProject;
     private String name;
@@ -26,11 +27,10 @@ public class Task {
     }
 
     public Task() {
+        this.deadline = new Date();
         this.createdAt = new Date();
         this.updateAt = new Date();
     }
-    
-    
 
     public int getId() {
         return id;
@@ -108,5 +108,5 @@ public class Task {
     public String toString() {
         return "Task{" + "id=" + id + ", idProject=" + idProject + ", name=" + name + ", description=" + description + ", notes=" + notes + ", completed=" + completed + ", deadline=" + deadline + ", createdAt=" + createdAt + ", updateAt=" + updateAt + '}';
     }
-    
+
 }
