@@ -7,6 +7,8 @@ package TodoApp.view;
 import TodoApp.controller.ProjectController;
 import TodoApp.controller.TaskController;
 import TodoApp.model.Project;
+import TodoApp.model.Task;
+import TodoApp.util.TaskTableModel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
@@ -23,7 +25,8 @@ public class MainScreen extends javax.swing.JFrame {
     ProjectController projectController;
     TaskController taskController;
     
-    DefaultListModel projectModel;
+    DefaultListModel projectsModel;
+    TaskTableModel tasksModel;
     
     public MainScreen() {
         initComponents();
@@ -268,6 +271,7 @@ public class MainScreen extends javax.swing.JFrame {
         jTableTasks.setGridColor(new java.awt.Color(255, 255, 255));
         jTableTasks.setRowHeight(50);
         jTableTasks.setSelectionBackground(new java.awt.Color(204, 255, 204));
+        jTableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableTasks.setShowHorizontalLines(true);
         jScrollPaneTasks.setViewportView(jTableTasks);
 
@@ -332,6 +336,12 @@ public class MainScreen extends javax.swing.JFrame {
         TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, rootPaneCheckingEnabled);
         //taskDialogScreen.setProject(null);
         taskDialogScreen.setVisible(true);
+//        taskDialogScreen.addWindowListener(new WindowAdapter() {
+//            @Override
+//            public void windowClosed(WindowEvent e) {
+//                loadTasks(4);
+//            }
+//        });
       
     }//GEN-LAST:event_jLabelTasksAddMouseClicked
 
@@ -406,20 +416,29 @@ public class MainScreen extends javax.swing.JFrame {
     }
     
     public void initComponentsModel(){
-        projectModel = new DefaultListModel<>();
+        projectsModel = new DefaultListModel<>();
         loadProjects();
+        
+        tasksModel = new TaskTableModel();
+        jTableTasks.setModel(tasksModel);
+        loadTasks(4);
+    }
+    
+    public void loadTasks(int idProject){
+        List<Task> tasks = taskController.getAll(idProject);
+        tasksModel.setTasks(tasks);
     }
     
     public void loadProjects(){
         List<Project> projects = projectController.getAll();
-        projectModel.clear();
+        projectsModel.clear();
         
         for (int i = 0; i < projects.size(); i++) {
             Project project = projects.get(i);
-            projectModel.addElement(project);
+            projectsModel.addElement(project);
         }
         
-        jListProjects.setModel(projectModel);
+        jListProjects.setModel(projectsModel);
     }
     
 }
