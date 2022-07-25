@@ -196,7 +196,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
             dataFormatada = formato.parse(jFormattedTextFieldDeadline.getText());
 
             Task task = new Task();
-            task.setIdProject(4);
+            task.setIdProject(project.getId());
             task.setName(jTextFieldName.getText());
             task.setDescription(jTextAreaDescription.getText());
             task.setDeadline(dataFormatada);
