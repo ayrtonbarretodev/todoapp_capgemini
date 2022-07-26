@@ -7,11 +7,8 @@ package TodoApp.view;
 import TodoApp.controller.TaskController;
 import TodoApp.model.Project;
 import TodoApp.model.Task;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**

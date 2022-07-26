@@ -8,6 +8,8 @@ import TodoApp.controller.ProjectController;
 import TodoApp.controller.TaskController;
 import TodoApp.model.Project;
 import TodoApp.model.Task;
+import TodoApp.util.ButtonColumnCellRederer;
+import TodoApp.util.DeadlineColumnCellRederer;
 import TodoApp.util.TaskTableModel;
 import java.awt.Color;
 import java.awt.Font;
@@ -30,9 +32,11 @@ public class MainScreen extends javax.swing.JFrame {
 
     public MainScreen() {
         initComponents();
-        decorateTableTask();
+
         initDataController();
         initComponentsModel();
+
+        decorateTableTask();
     }
 
     /**
@@ -368,7 +372,7 @@ public class MainScreen extends javax.swing.JFrame {
                 //removendo tarefa
                 taskController.removeById(task.getId());
                 tasksModel.getTasks().remove(task);
-                
+
                 //recarregando lista de tarefas
                 int projectIndex = jListProjects.getSelectedIndex();
                 Project project = (Project) projectsModel.get(projectIndex);
@@ -446,6 +450,9 @@ public class MainScreen extends javax.swing.JFrame {
         jTableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
         jTableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
         jTableTasks.setAutoCreateRowSorter(true); //faz o ordenamento das colunas no grid, por exemplo, em ordem alfabética/crescente/decrescente
+        jTableTasks.getColumnModel().getColumn(2).setCellRenderer(new DeadlineColumnCellRederer());
+        jTableTasks.getColumnModel().getColumn(4).setCellRenderer(new ButtonColumnCellRederer("edit"));
+        jTableTasks.getColumnModel().getColumn(5).setCellRenderer(new ButtonColumnCellRederer("delete"));
     }
 
     public void initDataController() {
