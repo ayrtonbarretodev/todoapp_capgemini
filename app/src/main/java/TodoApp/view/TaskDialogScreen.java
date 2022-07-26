@@ -188,24 +188,29 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     private void jLabelToolBarSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelToolBarSaveMouseClicked
 
         try {
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            Date dataFormatada;
-            dataFormatada = formato.parse(jFormattedTextFieldDeadline.getText());
+            if (!jTextFieldName.getText().isEmpty() && !jFormattedTextFieldDeadline.getText().isEmpty()) {
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                Date dataFormatada;
+                dataFormatada = formato.parse(jFormattedTextFieldDeadline.getText());
 
-            Task task = new Task();
-            task.setIdProject(project.getId());
-            task.setName(jTextFieldName.getText());
-            task.setDescription(jTextAreaDescription.getText());
-            task.setDeadline(dataFormatada);
-            task.setNotes(jTextAreaNotes.getText());
-            task.setCompleted(false);
+                Task task = new Task();
+                task.setIdProject(project.getId());
+                task.setName(jTextFieldName.getText());
+                task.setDescription(jTextAreaDescription.getText());
+                task.setDeadline(dataFormatada);
+                task.setNotes(jTextAreaNotes.getText());
+                task.setCompleted(false);
 
-            controller.save(task);
-            JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso");
+                controller.save(task);
+                JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "A Tarefa não foi salva pois existem campos obrigatórios a serem preenchidos");
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        this.dispose();
+
     }//GEN-LAST:event_jLabelToolBarSaveMouseClicked
 
     /**
