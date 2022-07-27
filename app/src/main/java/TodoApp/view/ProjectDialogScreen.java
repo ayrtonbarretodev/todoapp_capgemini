@@ -4,7 +4,7 @@
  */
 package TodoApp.view;
 
-import TodoApp.controller.ProjectController;
+import TodoApp.controller.ProjectDAO;
 import TodoApp.model.Project;
 import javax.swing.JOptionPane;
 
@@ -14,13 +14,13 @@ import javax.swing.JOptionPane;
  */
 public class ProjectDialogScreen extends javax.swing.JDialog {
 
-    ProjectController controller;
+    ProjectDAO projectDAO;
 
     public ProjectDialogScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
-        controller = new ProjectController();
+        initDataAccessObjects();
+        centralizeProjectDialogScreen();
     }
 
     /**
@@ -160,11 +160,9 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
 
             if (!jTextFieldName.getText().equals("")) {
                 Project project = new Project();
-                String nome = jTextFieldName.getText();
-                String descricao = jTextAreaDescription.getText();
-                project.setName(nome);
-                project.setDescription(descricao);
-                controller.save(project);
+                project.setName(jTextFieldName.getText());
+                project.setDescription(jTextAreaDescription.getText());
+                projectDAO.save(project);
                 JOptionPane.showMessageDialog(rootPane, "Projeto salvo com sucesso");
                 this.dispose(); //esse comando fecha a janela após o aperto do botão para salva-lo
             } else {
@@ -217,6 +215,14 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+    
+    private void initDataAccessObjects() {
+        projectDAO = new ProjectDAO();
+    }
+    
+    private void centralizeProjectDialogScreen() {
+        setLocationRelativeTo(null);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

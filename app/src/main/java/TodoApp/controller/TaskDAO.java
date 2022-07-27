@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskController {
+public class TaskDAO {
 
     public void save(Task task) {
         String sql = "INSERT INTO tasks (idProject, name, description, completed, notes, deadline, createdAt, updatedAt) "
@@ -66,12 +66,46 @@ public class TaskController {
     }
 
     public List<Task> getAll(int idProject) {
-        String sql = "SELECT * FROM tasks WHERE idProject = ?";
+        String sql = "SELECT * FROM tasks";
 
         List<Task> tasks = new ArrayList<>();
 
         try ( Connection con = ConnectionFactory.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setInt(1, idProject);
+            ps.executeQuery();
+            try ( ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Task task = new Task();
+                    task.setId(rs.getInt("id"));
+                    task.setIdProject(rs.getInt("idProject"));
+                    task.setName(rs.getString("name"));
+                    task.setDescription(rs.getString("description"));
+                    task.setCompleted(rs.getBoolean("completed"));
+                    task.setNotes(rs.getString("notes"));
+                    task.setDeadline(rs.getDate("deadline"));
+                    task.setCreatedAt(rs.getDate("createdAt"));
+                    task.setUpdateAt(rs.getDate("updatedAt"));
+
+                    tasks.add(task);
+                }
+            } catch (Exception e) {
+                e.getMessage();
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao inserir a tarefa" + e.getMessage(), e);
+        }
+
+        return tasks;
+    }
+    
+    public List<Task> getByProjectId(int id) {
+        String sql = "SELECT * FROM tasks WHERE idProject = ?";
+
+        List<Task> tasks = new ArrayList<>();
+
+        try ( Connection con = ConnectionFactory.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setInt(1, id);
             ps.executeQuery();
             try ( ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {

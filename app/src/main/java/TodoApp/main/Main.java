@@ -3,8 +3,8 @@
  */
 package TodoApp.main;
 
-import TodoApp.controller.ProjectController;
-import TodoApp.controller.TaskController;
+import TodoApp.controller.ProjectDAO;
+import TodoApp.controller.TaskDAO;
 import TodoApp.model.Project;
 import TodoApp.model.Task;
 import java.util.Date;
@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         //System.out.println(new App().getGreeting());
 
-        ProjectController projectController = new ProjectController();
+        ProjectDAO projectController = new ProjectDAO();
 
 //        Project project = new Project();
 //        project.setName("Projeto Three");
@@ -39,7 +39,7 @@ public class Main {
 
         System.out.println("");
         
-        TaskController taskController = new TaskController();
+        TaskDAO taskController = new TaskDAO();
 
         Task task = new Task();
         task.setIdProject(1);

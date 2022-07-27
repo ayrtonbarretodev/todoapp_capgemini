@@ -4,7 +4,7 @@
  */
 package TodoApp.view;
 
-import TodoApp.controller.TaskController;
+import TodoApp.controller.TaskDAO;
 import TodoApp.model.Project;
 import TodoApp.model.Task;
 import java.text.SimpleDateFormat;
@@ -17,14 +17,15 @@ import javax.swing.JOptionPane;
  */
 public class TaskDialogScreen extends javax.swing.JDialog {
 
-    TaskController controller;
+    TaskDAO taskDAO;
     Project project;
 
     public TaskDialogScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        initDataAccessObjects();
+        centralizeTaskDialogScreen();
         hideErrorFields();
-        controller = new TaskController();
     }
 
     /**
@@ -218,7 +219,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
                 task.setNotes(jTextAreaNotes.getText());
                 task.setCompleted(false);
 
-                controller.save(task);
+                taskDAO.save(task);
                 JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso");
                 this.dispose();
             } else {
@@ -311,6 +312,14 @@ public class TaskDialogScreen extends javax.swing.JDialog {
 
     public boolean isFieldsValid() {
         return (!jTextFieldName.getText().isEmpty()) && (!jFormattedTextFieldDeadline.getText().isEmpty());
+    }
+    
+    private void initDataAccessObjects() {
+        taskDAO = new TaskDAO();
+    }
+    
+    private void centralizeTaskDialogScreen() {
+        setLocationRelativeTo(null);
     }
 
 }

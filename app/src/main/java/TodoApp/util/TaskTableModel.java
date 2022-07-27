@@ -82,4 +82,9 @@ public class TaskTableModel extends AbstractTableModel {
         return columns;
     }
     
+     public void addRow(Task task) {
+        this.tasks.add(task);
+    }
+    
+    
 }
